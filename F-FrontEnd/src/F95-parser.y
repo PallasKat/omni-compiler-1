@@ -698,7 +698,7 @@ statement:      /* entry */
         // Trick to allow keyword as identifier. Almost same rule as the one
         // above.
         | func_prefix type_spec FUNCTION IDENTIFIER dummy_arg_list KW func_prefix
-          { $$ = list6(F_FUNCTION_STATEMENT, $4, $5, $2, $1, EXPR_ARG1($7), EXPR_ARG2($8)); }
+          { $$ = list6(F_FUNCTION_STATEMENT, $4, $5, $2, $1, EXPR_ARG1($7), EXPR_ARG2($7)); }
 /* END: FUNCTION */
         | ENDFUNCTION name_or_null
           { $$ = list1(F95_ENDFUNCTION_STATEMENT,$2); }
