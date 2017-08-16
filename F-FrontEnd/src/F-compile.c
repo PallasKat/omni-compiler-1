@@ -1332,6 +1332,11 @@ compile_statement1(int st_no, expr x)
         check_INDCL();
         break;
 
+    case F03_PROCEDURE_POINTER:
+        check_INDCL();
+        // TODO compile_PROCEDURE_pointer(x);
+        break;    
+
     default:
         compile_exec_statement(x);
         break;

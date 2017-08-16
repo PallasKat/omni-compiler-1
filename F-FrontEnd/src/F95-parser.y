@@ -1118,6 +1118,10 @@ declaration_statement2003:
         { $$ = list3(F95_TYPEDECL_STATEMENT,$3,NULL,$5); }
         | KW_TYPE ',' KW type_attr_spec_list COL2 IDENTIFIER '(' type_param_list ')'
         { $$ = list3(F95_TYPEDECL_STATEMENT,$6,$4,$8); }
+        | PROCEDURE '(' IDENTIFIER ')' ',' KW POINTER COL2 IDENTIFIER
+        { $$ = list3(F03_PROCEDURE_POINTER, $3, $9, NULL); }
+        | PROCEDURE '(' IDENTIFIER ')' ',' KW POINTER COL2 IDENTIFIER REF_OP IDENTIFIER
+        { $$ = list3(F03_PROCEDURE_POINTER, $3, $9, $11); }
         ;
 
 type_param_list:
