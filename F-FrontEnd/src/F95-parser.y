@@ -538,7 +538,7 @@ static void type_spec_done();
 %type <val> use_rename_list use_rename use_only_list use_only 
 %type <val> allocation_list allocation
 %type <val> scene_list scene_range
-%type <val> bind_opt
+%type <val> bind_opt pointer_value
 
 
 %start program
@@ -1120,8 +1120,20 @@ declaration_statement2003:
         { $$ = list3(F95_TYPEDECL_STATEMENT,$6,$4,$8); }
         | PROCEDURE '(' IDENTIFIER ')' ',' KW POINTER COL2 IDENTIFIER
         { $$ = list3(F03_PROCEDURE_POINTER, $3, $9, NULL); }
-        | PROCEDURE '(' IDENTIFIER ')' ',' KW POINTER COL2 IDENTIFIER REF_OP IDENTIFIER
+        | PROCEDURE '(' IDENTIFIER ')' ',' KW POINTER COL2 IDENTIFIER REF_OP pointer_value
         { $$ = list3(F03_PROCEDURE_POINTER, $3, $9, $11); }
+        ;
+
+pointer_value:
+         IDENTIFIER
+        { $$ = $1; }
+        | IDENTIFIER /* null */ '(' ')'
+        {
+          if (strcasecmp(SYM_NAME(EXPR_SYM($1)), "null") != 0) {
+            error_at_node($1, "expect null()");
+          }
+          $$ = $1;
+        }
         ;
 
 type_param_list:
