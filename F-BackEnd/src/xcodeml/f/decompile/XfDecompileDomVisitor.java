@@ -1228,9 +1228,15 @@ public class XfDecompileDomVisitor {
     private void _writeBinaryExpr(Node leftExpr, Node rightExpr,
                                   String operation, boolean grouping) {
 
+/*
         if (operation != "=") {
             grouping = true;
         }
+*/
+	if (operation == "+" || operation == "-" || operation == "*" || operation == "/" || operation == "**") {
+               grouping = true;
+       }
+
         XmfWriter writer = _context.getWriter();
         boolean need_paren;
         int op_prio = operator_priority(operation);
